@@ -89,8 +89,8 @@ function List({ data, session }: any) {
     </Box>
   );
 }
-export async function getServerSideProps(context: AnyPtrRecord) {
-  const session = await getSession(context as any);
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
 
   if (!session) {
     return {
