@@ -20,7 +20,6 @@ function List({ data, session }: any) {
     (state: any) => state.products.hasMoreProducts,
   );
   const products = useSelector((state: any) => state.products.data);
-  console.log(products);
   const itemCount = products.length;
   const productPerPage = 10;
 
@@ -68,7 +67,7 @@ function List({ data, session }: any) {
       </Head>
       <User name={session.user.name} />
       <NavBar />
-      <Box marginTop={4}>
+      <Box marginTop={2}>
         <Box
           display={"flex"}
           flexDirection={"column"}

@@ -12,12 +12,6 @@ export default function App({ Component, pageProps, session }: any) {
       primary: {
         main: colors.blueGrey[700],
       },
-      secondary: {
-        main: colors.blueGrey[50],
-      },
-      action: {
-        hover: colors.blueGrey[900],
-      },
       background: {
         default: colors.grey[100],
       },
@@ -46,7 +40,6 @@ export default function App({ Component, pageProps, session }: any) {
     },
   });
 
-  console.log(theme);
   return (
     <SessionProvider session={session}>
       <Provider store={store}>
