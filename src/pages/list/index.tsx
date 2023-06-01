@@ -55,6 +55,7 @@ function List({ data, session }: any) {
       />
     );
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const { products: initProducts } = data;
     !products.length && dispatch(setProductsState(initProducts));
