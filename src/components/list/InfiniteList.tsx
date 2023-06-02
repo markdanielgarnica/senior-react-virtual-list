@@ -4,6 +4,7 @@ import { FixedSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 function InfiniteList({
   itemCount,
@@ -11,7 +12,9 @@ function InfiniteList({
   isItemLoaded,
   renderItem,
 }: any) {
-  const isLoading = useSelector((state: any) => state.products.logs.isLoading);
+  const isLoading = useSelector(
+    (state: RootState) => state.products.logs.isLoading,
+  );
 
   const isItemLoading = (index: number) => !isItemLoaded(index);
 
@@ -37,7 +40,6 @@ function InfiniteList({
           width={500}
         >
           {({ index, style }: any) => {
-            const marginBottom = index < itemCount - 1 ? 5 : 0;
             return (
               <div
                 style={{

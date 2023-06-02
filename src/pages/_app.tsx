@@ -3,7 +3,13 @@ import { SessionProvider } from "next-auth/react";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import Layout from "@/components/Layout";
-export default function App({ Component, pageProps, session }: any) {
+import { AppProps } from "next/app";
+import { Session } from "next-auth";
+
+interface CustomAppProps extends AppProps {
+  session: Session | null;
+}
+export default function App({ Component, pageProps, session }: CustomAppProps) {
   const theme = createTheme({
     palette: {
       text: {

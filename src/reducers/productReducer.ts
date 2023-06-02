@@ -1,5 +1,13 @@
-import { createSlice, createSelector } from "@reduxjs/toolkit";
-const initialState = {
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+export interface ProductsState {
+  data: any[];
+  hasMoreProducts: boolean;
+  logs: {
+    isLoading: boolean;
+  };
+}
+const initialState: ProductsState = {
   data: [],
   hasMoreProducts: true,
   logs: {
@@ -11,14 +19,14 @@ const slice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    setProductsState: (state, action) => {
+    setProductsState: (state, action: PayloadAction<any[]>) => {
       console.log("hey", state.data.concat(action.payload));
       state.data = state.data.concat(action.payload);
     },
-    setHasMoreProducts: (state, action) => {
+    setHasMoreProducts: (state, action: PayloadAction<boolean>) => {
       state.hasMoreProducts = action.payload;
     },
-    setIsLoading: (state, action) => {
+    setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.logs.isLoading = action.payload;
     },
   },

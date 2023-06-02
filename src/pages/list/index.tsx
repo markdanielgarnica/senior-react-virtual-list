@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
+import Head from "next/head";
 import { useSelector, useDispatch } from "react-redux";
 import { Box, Typography } from "@mui/material";
 import { getSession } from "next-auth/react";
@@ -12,22 +13,29 @@ import ProductCard from "@/components/list/ProductCard";
 import InfiniteList from "@/components/list/InfiniteList";
 import NavBar from "@/shared/NavBar";
 import User from "@/shared/User";
-import Head from "next/head";
-import { AnyPtrRecord } from "dns";
+import { RootState } from "@/redux/store";
+import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
+import { Session } from "next-auth";
+
 function List({ data, session }: any) {
   const dispatch = useDispatch();
   const hasMoreProductsState = useSelector(
-    (state: any) => state.products.hasMoreProducts,
+    (state: RootState) => state.products.hasMoreProducts,
   );
-  const products = useSelector((state: any) => state.products.data);
+  const products = useSelector((state: RootState) => state.products.data);
   const itemCount = products.length;
   const productPerPage = 10;
 
   const isItemLoaded = (index: number) => index < products.length;
 
   async function fetchMoreData(startIndex: number) {
+    // calculate page number
     const nextPage = Math.floor(startIndex / productPerPage) + 1;
+
+    // calculate to ensure skipping by number of tens (10) based on the current page.
     const skip = (nextPage - 1) * productPerPage;
+
+    // limit to 10 products per page
     const limit = productPerPage;
     dispatch(setIsLoading(true));
 
@@ -89,13 +97,14 @@ function List({ data, session }: any) {
     </Box>
   );
 }
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
 
   if (!session) {
     return {
       redirect: {
         destination: "/",
+        permanent: false,
       },
     };
   }
